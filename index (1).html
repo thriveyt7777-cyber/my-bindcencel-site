@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            background: black; 
+            font-family: 'Courier New', Courier, monospace; 
+            padding: 10px;
+            margin: 0;
+            overflow: auto;
+        }
+        #code { 
+            font-size: 14px; 
+            word-wrap: break-word;
+        }
+        .green { color: #00FF00; }
+        .red { color: #FF0000; }
+        .yellow { color: #FFFF00; }
+        
+        .status {
+            color: white;
+            background-color: red;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div id="code">Initializing Hacking Sequence...<br></div>
+
+    <script>
+        const codeElement = document.getElementById('code');
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}[]|:;<>,.?/~";
+        const nums = "0123456789";
+        const colors = ["green", "red", "yellow"];
+        
+        const duration = 30000; 
+
+        const interval = setInterval(() => {
+            let line = "";
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // রেন্ডমলি ঠিক করা হবে এটি কি কোড হবে নাকি ৮ ডিজিটের নাম্বার হবে
+            let isNumberLine = Math.random() > 0.7; // ৩০% সম্ভাবনা ৮ ডিজিটের নাম্বার আসার
+
+            if (isNumberLine) {
+                // ৮ ডিজিটের র‍্যান্ডম নাম্বার তৈরি
+                for(let i = 0; i < 8; i++) {
+                    line += nums.charAt(Math.floor(Math.random() * nums.length));
+                }
+            } else {
+                // সাধারণ কোড জেনারেটর
+                let length = Math.floor(Math.random() * 20) + 20; 
+                for(let i = 0; i < length; i++) {
+                    line += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+            }
+            
+            codeElement.innerHTML += `<span class='${randomColor}'>${line}</span><br>`;
+            window.scrollTo(0, document.body.scrollHeight);
+        }, 100); // গতি একটু কমিয়ে দেওয়া হয়েছে যাতে পড়তে সুবিধা হয়
+
+        setTimeout(() => {
+            clearInterval(interval);
+            codeElement.innerHTML += "<br><div class='status'>SYSTEM BREACHED!</div>";
+        }, duration);
+    </script>
+</body>
+</html>
